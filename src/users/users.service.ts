@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
-import { encrypt } from '../common/helpers/crypto';
+import { crypto } from '../common/helpers/crypto';
 import { CreateUserInput } from './dto/create-user.input';
 
 @Injectable()
@@ -18,10 +18,12 @@ export class UsersService {
       );
     }
 
+    const password = await crypto.encrypt(user.password);
+
     return this.prisma.user.create({
       data: {
         ...user,
-        password: encrypt(user.password)
+        password
       }
     });
   }

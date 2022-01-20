@@ -1,17 +1,18 @@
 import { PrismaClient } from '@prisma/client';
-import { encrypt } from '../src/common/helpers/crypto';
+import { crypto } from '../src/common/helpers/crypto';
 
 const prisma = new PrismaClient();
 
 async function main() {
   await prisma.user.deleteMany();
+  const password = await crypto.encrypt('nance@POWER!');
   const admin = await prisma.user.create({
     data: {
       email: 'admin@nance.com',
       name: 'Main Admin',
-      password: encrypt('nance@POWER!'),
       status: 'ACTIVE',
-      role: 'ADMIN'
+      role: 'ADMIN',
+      password
     }
   });
 

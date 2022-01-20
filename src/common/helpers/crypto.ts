@@ -1,7 +1,12 @@
-import { hashSync } from 'bcrypt';
+import { compare, hash } from 'bcrypt';
 
-export function encrypt(value?: string): string | undefined {
-  if (!value) return undefined;
+export const crypto = {
+  encrypt(value?: string): Promise<string | undefined> {
+    if (!value) return undefined;
 
-  return hashSync(value, 10);
-}
+    return hash(value, 10);
+  },
+  compare(value: string, encrypted: string): Promise<boolean> {
+    return compare(value, encrypted);
+  }
+};
