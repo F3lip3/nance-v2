@@ -1,0 +1,33 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Query {
+  user(email: String!): User!
+  users: [User!]!
+}
+
+type User {
+  created_at: DateTime!
+  email: String!
+  id: Int!
+  name: String!
+  role: UserRole!
+  status: UserStatus!
+  updated_at: DateTime!
+}
+
+enum UserRole {
+  ADMIN
+  COMMON
+}
+
+enum UserStatus {
+  ACTIVE
+  REMOVED
+}
